@@ -40,53 +40,26 @@ class LogisticsService:
     def get_data(id, type):
         try:
             if type == "road":
-                road_collection = db.road
-                result = road_collection.find_one({"_id": ObjectId(id)})
-
-                if result["_id"] == ObjectId(id) and result["type"] == type:
-                    data = {
-                        "id": str(result["_id"]),
-                        "name": result["name"],
-                        "description": result["description"],
-                        "date_created": result["date_created"].strftime(
-                            "%b %d %Y, %H:%M:%S"
-                        ),
-                    }
-                else:
-                    data = {"error": "Data Not Found!"}
-
+                collection = db.road
             elif type == "sea":
-                sea_collection = db.sea
-                result = sea_collection.find_one({"_id": ObjectId(id)})
-
-                if result["_id"] == ObjectId(id) and result["type"] == type:
-                    data = {
-                        "id": str(result["_id"]),
-                        "name": result["name"],
-                        "description": result["description"],
-                        "date_created": result["date_created"].strftime(
-                            "%b %d %Y, %H:%M:%S"
-                        ),
-                    }
-                else:
-                    data = {"error": "Data Not Found!"}
-
+                collection = db.sea
+            elif type == "air":
+                collection = db.air
             else:
-                air_collection = db.air
-                result = air_collection.find_one({"_id": ObjectId(id)})
-
-                if result["_id"] == ObjectId(id) and result["type"] == type:
-                    data = {
-                        "id": str(result["_id"]),
-                        "name": result["name"],
-                        "description": result["description"],
-                        "date_created": result["date_created"].strftime(
-                            "%b %d %Y, %H:%M:%S"
-                        ),
-                    }
-                else:
-                    data = {"error": "Data Not Found!"}
-
+                raise ValueError("Invalid 'type'. Allowed values are 'road', 'sea', or 'air'.")
+            
+            result = collection.find_one({"_id": ObjectId(id), "type": type})
+            if result:
+                data = {
+                    "id": str(result["_id"]),
+                    "type": result["type"],
+                    "name": result["name"],
+                    "description": result["description"],
+                    "date_created": result["date_created"].strftime("%b %d %Y, %H:%M:%S"),
+                }
+            else:
+                data = {"error": "Not Found!"}
+            
         except Exception as e:
             data = {"error": str(e)}
 
