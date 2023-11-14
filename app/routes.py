@@ -20,7 +20,7 @@ def index():
     response_data = {
         "message": "The list has been fetched successfully.",
         "success": True,
-        "result": {"data": json_data},
+        "result": {"data": response},
     }
 
     return response_data, 200
@@ -64,15 +64,16 @@ def insert_data():
     return response_data, 200
 
 
-@bp.route("/edit/<id>/<type>", methods=["PUT"])
-def edit_data(id):
-    req_data = request.get_json()
+@bp.route("/edit/<id>/<type>", methods=["GET"])
+def edit_data(id, type):
+    result = LogisticsService.get_data(id, type)
+    json_data = dumps(result, default=str)
+
+    response_data = {
+        "message": "The data has been fetched successfully.",
+        "success": True,
+        "result": {"data": json_data},
+    }
+    return response_data, 200
     
-    try:
-        pass
-        
-    except Exception as e:
-        print(e)
-    
-    return id, 200
     
