@@ -43,9 +43,9 @@ class LogisticsService:
                 road_collection = db.road
                 result = road_collection.find_one({"_id": ObjectId(id)})
 
-                if result["_id"] == ObjectId(id) and result["type"] == "road":
+                if result["_id"] == ObjectId(id) and result["type"] == type:
                     data = {
-                        "id": (str(result["_id"])),
+                        "id": str(result["_id"]),
                         "name": result["name"],
                         "description": result["description"],
                         "date_created": result["date_created"].strftime(
@@ -59,16 +59,15 @@ class LogisticsService:
                 sea_collection = db.sea
                 result = sea_collection.find_one({"_id": ObjectId(id)})
 
-                if result["_id"] == ObjectId(id) and result["type"] == "sea":
+                if result["_id"] == ObjectId(id) and result["type"] == type:
                     data = {
-                        "id": (str(result["_id"])),
+                        "id": str(result["_id"]),
                         "name": result["name"],
                         "description": result["description"],
                         "date_created": result["date_created"].strftime(
                             "%b %d %Y, %H:%M:%S"
                         ),
                     }
-
                 else:
                     data = {"error": "Data Not Found!"}
 
@@ -76,16 +75,15 @@ class LogisticsService:
                 air_collection = db.air
                 result = air_collection.find_one({"_id": ObjectId(id)})
 
-                if result["_id"] == ObjectId(id) and result["type"] == "air":
+                if result["_id"] == ObjectId(id) and result["type"] == type:
                     data = {
-                        "id": (str(result["_id"])),
+                        "id": str(result["_id"]),
                         "name": result["name"],
                         "description": result["description"],
                         "date_created": result["date_created"].strftime(
                             "%b %d %Y, %H:%M:%S"
                         ),
                     }
-
                 else:
                     data = {"error": "Data Not Found!"}
 
