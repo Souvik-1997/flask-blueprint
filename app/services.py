@@ -1,4 +1,4 @@
-# Service for logistics operations
+LK# Service for logistics operations
 
 from datetime import datetime
 from app import db
@@ -65,22 +65,3 @@ class LogisticsService:
 
         return data
 
-    # def update_data(id, type, req_data):
-    #     if type == "road":
-    #         road_collection = db.road
-    #         result = road_collection.find_one({"_id": ObjectId(id)})
-    #         if result["_id"] == ObjectId(id) and result["type"] == "road":
-    #             result_data = road_collection.insert_one(
-    #                 {
-    #                     "type": type,
-    #                     "name": req_data["name"],
-    #                     "description": req_data["description"],
-    #                     "date_created": datetime.utcnow(),
-    #                 }
-    #             )
-    #         return result_data
-
-    #     elif type == "sea":
-    #         pass
-    #     else:
-    #         pass
